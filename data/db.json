@@ -1,0 +1,108 @@
+{
+    "movielist":[
+        {
+            "id":1,
+            "type":"",
+            "release":"",
+            "runtime":"",
+            "genres":"",
+            "category": "",
+            "description": "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
+            "pic":"img1",
+            "ratings": 4.8,
+            "title":"Black Widow"
+    
+        },
+        {
+            "id":2,
+            "type":"",
+            "release":"",
+            "runtime":"",
+            "genres":"",
+            "category": "",
+            "description": "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
+            "pic":"img2",
+            "ratings": 4.8,
+            "title":"Shang Chi"
+    
+        },
+        {
+            "id":3,
+            "type":"",
+            "release":"",
+            "runtime":"",
+            "genres":"",
+            "category": "",
+            "description": "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
+            "pic":"img3",
+            "ratings": 4.8,
+            "title":"Loki"
+    
+        },
+        {
+            "id":4,
+            "type":"",
+            "release":"",
+            "runtime":"",
+            "genres":"",
+            "category": "",
+            "description": "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
+            "pic":"img4",
+            "ratings": 4.8,
+            "title":"How I Met Your Mother"
+    
+        },
+        {
+            "id":5,
+            "type":"",
+            "release":"",
+            "runtime":"",
+            "genres":"",
+            "category": "",
+            "description": "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
+            "pic":"img5",
+            "ratings": 4.8,
+            "title":"Money Heist"
+    
+        },
+        {
+            "id":6,
+            "type":"",
+            "release":"",
+            "runtime":"",
+            "genres":"",
+            "category": "",
+            "description": "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
+            "pic":"img6",
+            "ratings": 4.8,
+            "title":"Friends"
+    
+        },
+        {
+            "id":7,
+            "type":"",
+            "release":"",
+            "runtime":"",
+            "genres":"",
+            "category": "",
+            "description": "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
+            "pic":"img7",
+            "ratings": 4.8,
+            "title":"The Big Bang Theory"
+    
+        },
+        {
+            "id":8,
+            "type":"",
+            "release":"",
+            "runtime":"",
+            "genres":"",
+            "category": "",
+            "description": "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
+            "pic":"img3",
+            "ratings": 4.8,
+            "title":"Two And a Half Men"
+    
+        }
+    ]
+}
