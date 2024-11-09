@@ -6,7 +6,7 @@ import Image from "next/image";
 // Movie and TV show list component with pagination
 export default function AllVideosList() {
   const [movielist, setMovielist] = useState<any[]>([]);  // Combined movie and tv data
-  const [currentPage, setCurrentPage] = useState(1);       // Current page
+  const [currentPage, setCurrentPage] = useState<number | null>(null); // Current page, initialize as null
   const [totalPages, setTotalPages] = useState(0);         // Total pages
   const [totalResults, setTotalResults] = useState(0);     // Total number of results
   const [loading, setLoading] = useState(true);            // Loading state
@@ -42,14 +42,23 @@ export default function AllVideosList() {
     const savedPage = localStorage.getItem("currentPage");
     if (savedPage) {
       setCurrentPage(Number(savedPage));  // Set the page from localStorage
+    } else {
+      setCurrentPage(1);  // Default to page 1 if not found
     }
   }, []);
 
-  // Fetch movies and tv shows based on the current page
+  // Fetch movies and tv shows only when currentPage is loaded
   useEffect(() => {
-    getMoviesAndTV(currentPage);  // Fetch movies and tv shows for the current page
-    // Save the current page to localStorage whenever it changes
-    localStorage.setItem("currentPage", String(currentPage));
+    if (currentPage !== null) {
+      getMoviesAndTV(currentPage);  // Fetch movies and tv shows for the current page
+    }
+  }, [currentPage]);
+
+  // Save the current page to localStorage whenever it changes
+  useEffect(() => {
+    if (currentPage !== null) {
+      localStorage.setItem("currentPage", String(currentPage));
+    }
   }, [currentPage]);
 
   // Function to handle page changes
@@ -64,11 +73,11 @@ export default function AllVideosList() {
         <p>Loading...</p>
       ) : (
         <>
-            <div className='mb-8'>
-                <span className='text-3xl text-[#8E95A9]'>
-                    All <sub className='text-xs'>({totalResults})</sub>
-                </span>
-            </div>
+          <div className="mb-8">
+            <span className="text-3xl text-[#8E95A9]">
+              All <sub className="text-xs">({totalResults})</sub>
+            </span>
+          </div>
           <div className="grid md:grid-cols-4 md:gap-10 gap-5">
             {movielist.map((item) => (
               <div key={item.id} className="p-3 bg-slate-700 rounded-xl md:mb-10 mb-5 relative">
@@ -92,7 +101,7 @@ export default function AllVideosList() {
           <div className="flex justify-center mt-6">
             <button
               className="px-4 py-2 border border-gray-500 rounded-lg mr-2"
-              onClick={() => handlePageChange(currentPage - 1)}
+              onClick={() => handlePageChange(currentPage! - 1)} // Non-null assertion to guarantee currentPage is set
               disabled={currentPage === 1}
             >
               Prev
@@ -101,7 +110,7 @@ export default function AllVideosList() {
             <span className="px-4 py-2">{currentPage} / {totalResults}</span>
             <button
               className="px-4 py-2 border border-gray-500 rounded-lg ml-2"
-              onClick={() => handlePageChange(currentPage + 1)}
+              onClick={() => handlePageChange(currentPage! + 1)} // Non-null assertion
               disabled={currentPage === totalPages}
             >
               Next

@@ -1,4 +1,5 @@
-"use client"; // Ensuring client-side code
+"use client"; // Ensure this runs client-side
+
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -6,20 +7,23 @@ import Image from "next/image";
 export default function VideoDetails({ params }: { params: { id: string } }) {
   const [video, setVideo] = useState<any>(null);  // State to hold movie or TV show details
   const [videos, setVideos] = useState<any[]>([]); // State to hold videos for movie/TV show
-  const [isMovie, setIsMovie] = useState<boolean | null>(null); // Flag to differentiate between movie and TV show
-  const [loading, setLoading] = useState<boolean>(true); // To track loading state
+  const [isMovie, setIsMovie] = useState<boolean | null>(null);    // Flag to differentiate between movie and TV show
+  const [loading, setLoading] = useState<boolean>(true); // Track loading state
 
-  const videoId = params.id; // Accessing the ID from params (this is safe after unwrapping)
+  const videoId = params.id; // Get the video ID from params
+  console.log('videoId:', videoId); // Debugging videoId
 
   // Fetch video (movie or TV show) details
   const getVideoDetails = async (id: string, isMovie: boolean) => {
     const endpoint = isMovie
       ? `https://api.themoviedb.org/3/movie/${id}?api_key=1cf389e0f40ef3e4cb2868cb714afb09`
       : `https://api.themoviedb.org/3/tv/${id}?api_key=1cf389e0f40ef3e4cb2868cb714afb09`;
-      
+
     try {
+      console.log('Fetching details from:', endpoint); // Debugging API call
       const res = await fetch(endpoint);
       const data = await res.json();
+      console.log('Video details data:', data); // Debugging response data
       setVideo(data);
     } catch (error) {
       console.error("Error fetching video details:", error);
@@ -31,10 +35,12 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
     const endpoint = isMovie
       ? `https://api.themoviedb.org/3/movie/${id}/videos?api_key=1cf389e0f40ef3e4cb2868cb714afb09`
       : `https://api.themoviedb.org/3/tv/${id}/videos?api_key=1cf389e0f40ef3e4cb2868cb714afb09`;
-      
+
     try {
+      console.log('Fetching videos from:', endpoint); // Debugging API call
       const res = await fetch(endpoint);
       const data = await res.json();
+      console.log('Video videos data:', data); // Debugging response data
       setVideos(data.results);
     } catch (error) {
       console.error("Error fetching video videos:", error);
@@ -49,6 +55,7 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
         `https://api.themoviedb.org/3/movie/${videoId}?api_key=1cf389e0f40ef3e4cb2868cb714afb09`
       );
       const movieData = await movieRes.json();
+      console.log('Movie data:', movieData); // Debugging
 
       if (movieData.id) {
         setIsMovie(true);
@@ -63,6 +70,7 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
         `https://api.themoviedb.org/3/tv/${videoId}?api_key=1cf389e0f40ef3e4cb2868cb714afb09`
       );
       const tvData = await tvRes.json();
+      console.log('TV data:', tvData); // Debugging
 
       if (tvData.id) {
         setIsMovie(false);
@@ -78,15 +86,13 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
     }
   };
 
-  // Ensure to check if we have the videoId and fetch data when component is mounted
   useEffect(() => {
     if (videoId) {
       checkIfMovieOrTV();  // Determine if the content is a movie or TV show
     }
   }, [videoId]);
 
-  // If still loading, show loading message
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>; // Show loading message while data is being fetched
 
   // Select the first video (or any specific type of video like "trailer")
   const selectedVideo = videos.find((video) => video.type === "Trailer") || videos[0];

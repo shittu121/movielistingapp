@@ -1,14 +1,20 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useSearchParams, useRouter } from "next/navigation";  // Import useSearchParams and useRouter
 
 // Movie list component with pagination
 export default function MoviesList() {
   const [movielist, setMovielist] = useState<any[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);  // Current page
   const [totalPages, setTotalPages] = useState(0);    // Total pages
   const [loading, setLoading] = useState(true);       // Loading state
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pageParam = searchParams.get("page");
+  const currentPage = Number(pageParam) || 1;  // Use query or default to 1
 
   // Fetch movie data based on page
   const getMovie = (page: number) => {
@@ -24,25 +30,15 @@ export default function MoviesList() {
       });
   };
 
-  // Check if there is a saved page in localStorage on component mount
+  // Fetch movies based on the current page from query params
   useEffect(() => {
-    const savedPage = localStorage.getItem("currentPage");
-    if (savedPage) {
-      setCurrentPage(Number(savedPage));  // Set the page from localStorage
-    }
-  }, []);
-
-  // Fetch movies based on the current page
-  useEffect(() => {
-    getMovie(currentPage);  // Fetch movies for the current page
-    // Save the current page to localStorage whenever it changes
-    localStorage.setItem("currentPage", String(currentPage));
+    getMovie(currentPage);
   }, [currentPage]);
 
   // Function to handle page changes
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;  // Prevent invalid pages
-    setCurrentPage(page);
+    router.push(`?page=${page}`);  // Update the URL with the new page
   };
 
   return (
@@ -51,15 +47,15 @@ export default function MoviesList() {
         <p>Loading movies...</p>
       ) : (
         <>
-            <div className='mb-8'>
-                <span className='text-3xl text-[#8E95A9]'>
-                    All<sub className='text-xs'>({totalPages})</sub>
-                </span>
-            </div>
+          <div className='mb-8'>
+            <span className='text-3xl text-[#8E95A9]'>
+              All<sub className='text-xs'>({totalPages})</sub>
+            </span>
+          </div>
           <div className="grid md:grid-cols-4 md:gap-10 gap-5">
             {movielist.map((movie) => (
               <div key={movie.id} className="p-3 bg-slate-700 rounded-xl md:mb-10 mb-5 relative">
-                <Link href={`/movies/${movie.id}`}>
+                <Link href={`/movies/${movie.id}?page=${currentPage}`}>
                   <Image
                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                     height={700}
