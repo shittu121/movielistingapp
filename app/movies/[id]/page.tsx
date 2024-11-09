@@ -95,7 +95,7 @@ export default function VideoDetails({ params }: { params: Promise<{ id: string 
   return (
     <div className="movie-details-page p-10">
       <h1 className="text-4xl mb-6">{video.title || video.name}</h1>
-      <div className="flex gap-10">
+      <div className="lg:flex md:flex block space-y-5 gap-10">
         <Image
           src={`https://image.tmdb.org/t/p/w500/${video.poster_path}`}
           height={700}
