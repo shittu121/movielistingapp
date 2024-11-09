@@ -1,16 +1,16 @@
 "use client"; // Ensuring client-side code
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 
 // Movie/TV Show details component with dynamic route parameter
-export default function VideoDetails({ params }: { params: { id: string } }) {
+export default function VideoDetails({ params }: { params: Promise<{ id: string }> }) {
   const [video, setVideo] = useState<any>(null);  // State to hold movie or TV show details
   const [videos, setVideos] = useState<any[]>([]); // State to hold videos for movie/TV show
   const [isMovie, setIsMovie] = useState<boolean | null>(null); // Flag to differentiate between movie and TV show
   const [loading, setLoading] = useState<boolean>(true); // To track loading state
 
-  const videoId = params.id; // Accessing the ID from params (this is safe after unwrapping)
+  // Use React.use() to unwrap the params Promise and access the videoId
+  const { id: videoId } = React.use(params);
 
   // Fetch video (movie or TV show) details
   const getVideoDetails = async (id: string, isMovie: boolean) => {
@@ -79,14 +79,12 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
     }
   };
 
-  // Ensure to check if we have the videoId and fetch data when component is mounted
   useEffect(() => {
     if (videoId) {
       checkIfMovieOrTV();  // Determine if the content is a movie or TV show
     }
   }, [videoId]);
 
-  // If still loading, show loading message
   if (loading) return <p>Loading...</p>;
 
   // Select the first video (or any specific type of video like "trailer")
@@ -139,13 +137,13 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
       <div className="mt-5">
         <h3 className="text-xl">Download Video</h3>
         <p>Click below to download the {isMovie ? "movie" : "TV show"} trailer:</p>
-        <Link
+        <a
           href={`https://www.youtube.com/watch?v=${selectedVideo.key}`} // Placeholder download link (YouTube does not allow direct downloads)
           target="_blank"
           className="text-blue-500 hover:underline"
         >
           Download Trailer (external link)
-        </Link>
+        </a>
       </div>
     </div>
   );
