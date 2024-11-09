@@ -68,7 +68,7 @@ export default function AllVideosList() {
   };
 
   return (
-    <div className="p-5">
+    <div className="">
       {loading ? (
         <p>Loading...</p>
       ) : (

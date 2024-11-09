@@ -60,7 +60,7 @@ export default function TVShowList() {
   };
 
   return (
-    <div className="p-5">
+    <div className="">
       {loading ? (
         <p>Loading TV shows...</p>
       ) : (

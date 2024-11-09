@@ -42,7 +42,7 @@ export default function MoviesList() {
   };
 
   return (
-    <div className="p-5">
+    <div className="">
       {loading ? (
         <p>Loading movies...</p>
       ) : (
