@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // Movie/TV Show details component with dynamic route parameter
 export default function VideoDetails({ params }: { params: { id: string } }) {
@@ -128,13 +129,13 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
       <div className="mt-5">
         <h3 className="text-xl">Download Video</h3>
         <p>Click below to download the {isMovie ? "movie" : "TV show"} trailer:</p>
-        <a
+        <Link
           href={`https://www.youtube.com/watch?v=${selectedVideo.key}`} // Placeholder download link (YouTube does not allow direct downloads)
           target="_blank"
           className="text-blue-500 hover:underline"
         >
           Download Trailer (external link)
-        </a>
+        </Link>
       </div>
     </div>
   );
