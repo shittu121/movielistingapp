@@ -3,25 +3,43 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 // Movie/TV Show details component with dynamic route parameter
-export default function VideoDetails({ params }: { params: { id: string } }) {
+export default function VideoDetails({ params }: { params: Promise<{ id: string }> }) {
   const [video, setVideo] = useState<any>(null);  // State to hold movie or TV show details
   const [videos, setVideos] = useState<any[]>([]); // State to hold videos for movie/TV show
-  const [isMovie, setIsMovie] = useState<boolean | null>(null);    // Flag to differentiate between movie and TV show
+  const [isMovie, setIsMovie] = useState<boolean | null>(null); // Flag to differentiate between movie and TV show
+  const [isLoading, setIsLoading] = useState<boolean>(true); // Loading state
+  const [error, setError] = useState<string | null>(null); // Error state
+  const [videoId, setVideoId] = useState<string | null>(null); // Video ID
 
-  const videoId = params.id; // Get the video ID from params
+  useEffect(() => {
+    // Unwrap params to get the video ID
+    const fetchParams = async () => {
+      try {
+        const resolvedParams = await params;
+        setVideoId(resolvedParams.id); // Set the video ID
+      } catch (err) {
+        console.error("Error resolving params:", err);
+        setError("Failed to load parameters");
+      }
+    };
+
+    fetchParams();
+  }, [params]); // Only run once the params are resolved
 
   // Fetch video (movie or TV show) details
   const getVideoDetails = async (id: string, isMovie: boolean) => {
     const endpoint = isMovie
       ? `https://api.themoviedb.org/3/movie/${id}?api_key=1cf389e0f40ef3e4cb2868cb714afb09`
       : `https://api.themoviedb.org/3/tv/${id}?api_key=1cf389e0f40ef3e4cb2868cb714afb09`;
-      
+
     try {
       const res = await fetch(endpoint);
       const data = await res.json();
+      console.log("Fetched video details:", data); // Debugging log
       setVideo(data);
     } catch (error) {
       console.error("Error fetching video details:", error);
+      setError("Failed to fetch video details");
     }
   };
 
@@ -30,18 +48,28 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
     const endpoint = isMovie
       ? `https://api.themoviedb.org/3/movie/${id}/videos?api_key=1cf389e0f40ef3e4cb2868cb714afb09`
       : `https://api.themoviedb.org/3/tv/${id}/videos?api_key=1cf389e0f40ef3e4cb2868cb714afb09`;
-      
+
     try {
       const res = await fetch(endpoint);
       const data = await res.json();
-      setVideos(data.results);
+      console.log("Fetched videos:", data); // Debugging log for video response
+      if (data.results && data.results.length > 0) {
+        setVideos(data.results);
+      } else {
+        setError("No videos available for this title.");
+      }
     } catch (error) {
       console.error("Error fetching video videos:", error);
+      setError("Failed to fetch video videos");
     }
   };
 
   // Check if the videoId is for a movie or TV show
   const checkIfMovieOrTV = async () => {
+    if (!videoId) return;
+
+    setIsLoading(true); // Start loading when checking if it's a movie or TV show
+
     try {
       // Try fetching the movie details first
       const movieRes = await fetch(
@@ -66,25 +94,68 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
         setIsMovie(false);
         getVideoDetails(videoId, false);
         getVideoVideos(videoId, false);
+      } else {
+        setError("Unable to find the movie or TV show.");
       }
     } catch (error) {
       console.error("Error determining if movie or TV show:", error);
+      setError("Failed to determine if it's a movie or TV show");
+    } finally {
+      setIsLoading(false); // Stop loading once the check is done
     }
   };
 
   useEffect(() => {
-    checkIfMovieOrTV();  // Determine if the content is a movie or TV show
-  }, [videoId]);
+    if (videoId) {
+      checkIfMovieOrTV(); // Determine if the content is a movie or TV show
+    }
+  }, [videoId]); // Re-run when videoId is set
 
-  if (!video) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>;
 
-  // Select the first video (or any specific type of video like "trailer")
+  if (error) return <p>{error}</p>;
+
+  if (!video) return <p>Video not found.</p>;
+
+  // If there are no videos available, show a fallback image or message
+  if (videos.length === 0) {
+    return (
+      <div className="video-details-page p-10">
+        <h1 className="text-4xl mb-6">{video.title || video.name}</h1>
+        <div className="flex gap-10">
+          <Image
+            src={`https://image.tmdb.org/t/p/w500/${video.poster_path}`}
+            height={700}
+            width={400}
+            className="rounded-md"
+            alt={video.title || video.name}
+          />
+          <div>
+            <h2 className="text-2xl mb-4">Overview</h2>
+            <p className="mb-6">{video.overview}</p>
+            <p>
+              <strong>{isMovie ? "Release Date" : "First Air Date"}:</strong>{" "}
+              {isMovie ? video.release_date : video.first_air_date}
+            </p>
+            <p>
+              <strong>Rating:</strong> {video.vote_average}
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-10">
+          <h2 className="text-2xl mb-4">No Trailer Available</h2>
+          <p>Unfortunately, there are no videos available for this title at the moment.</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Select the first video (or any specific type of video like "Trailer")
   const selectedVideo = videos.find((video) => video.type === "Trailer") || videos[0];
 
-  if (!selectedVideo) return <p>No video available</p>;
-
   return (
-    <div className="movie-details-page p-10">
+    <div className="video-details-page p-10">
       <h1 className="text-4xl mb-6">{video.title || video.name}</h1>
       <div className="flex gap-10">
         <Image
@@ -113,7 +184,7 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
         <div className="video-item">
           <iframe
             width="100%"
-            height="315"
+            height="500"
             src={`https://www.youtube.com/embed/${selectedVideo.key}`}
             title={selectedVideo.name}
             frameBorder="0"
@@ -122,19 +193,6 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
           ></iframe>
           <p className="mt-2">{selectedVideo.name}</p>
         </div>
-      </div>
-
-      {/* Download Option (example with a placeholder link) */}
-      <div className="mt-5">
-        <h3 className="text-xl">Download Video</h3>
-        <p>Click below to download the {isMovie ? "movie" : "TV show"} trailer:</p>
-        <a
-          href={`https://www.youtube.com/watch?v=${selectedVideo.key}`} // Placeholder download link (YouTube does not allow direct downloads)
-          target="_blank"
-          className="text-blue-500 hover:underline"
-        >
-          Download Trailer (external link)
-        </a>
       </div>
     </div>
   );

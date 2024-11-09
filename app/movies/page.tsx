@@ -1,5 +1,4 @@
 import React from 'react'
-
 import MoviesList from '../components/movies'
 export default function page() {
     return (
@@ -29,12 +28,6 @@ export default function page() {
                         </div>
                     </form>
                 </div>
-            </div>
-
-            <div className='mb-8'>
-                <span className='text-sm text-[#8E95A9]'>
-                    120 items
-                </span>
             </div>
 
             <MoviesList />

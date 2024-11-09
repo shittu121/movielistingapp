@@ -1,9 +1,10 @@
-import Image from 'next/image'
-import loginImg from '@/public/images/Frame 83.png'
+'use client'
+import { redirect } from 'next/navigation'
+import { useEffect } from 'react'
+
 export default function Home() {
-  return (
-    <main className='md:h-screen flex justify-center items-center p-4 '>
-    Hello Home 
-    </main>
-  )
+  useEffect(() => {
+    redirect('/home')
+  })
+  return <main className="bg-primary_13"></main>
 }
