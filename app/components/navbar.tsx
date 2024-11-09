@@ -4,8 +4,8 @@ import Logo from "@/public/images/icon.png"
 import Link from 'next/link'
 export default function Navbar() {
     return (
-        <header className='px-10 py-2'>
-            <div className='grid md:grid-cols-2 gap-10 items-center  justify-center'>
+        <header className='md:px-10 px-4 py-2'>
+            <div className='md:grid flex md:grid-cols-2 gap-10 items-center  md:justify-center'>
                 <div>
                     <Link href="/home">
                         <Image src={Logo} alt='' />
@@ -18,10 +18,7 @@ export default function Navbar() {
                     <div>
                         <Link href="/tv-shows">Tv Shows</Link>
                     </div>
-                    <div>
-                        <Link href="">Suggest me </Link>
-                    </div>
-
+                    
 
                 </div>
             </div>
