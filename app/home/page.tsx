@@ -1,11 +1,10 @@
 import React from 'react'
-import Navbar from '../components/navbar'
+import AllVideosList from '../components/Allvideoes'
 
-import MoviesList from '../components/movies'
-export default function page() {
- 
-    return (
-        <main className='md:px-16 px-4 mt-10'>
+const Home = () => {
+  return (
+    <div>
+      <main className='md:px-16 px-4 mt-10'>
             <div className='mb-10'>
                 <div className='grid grid-cols-2 mb-6'>
                     <h2 className='text-5xl font-bold'>MaileHereko</h2>
@@ -22,7 +21,7 @@ export default function page() {
                         <div className="relative">
                             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                    <path stroke="currentColor" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                 </svg>
                             </div>
                             <input type="search" id="default-search" className="block w-full p-4 ps-10 text-xs text-gray-900 border border-gray-500 outline-none rounded-lg bg-transparent focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Movies ..." required />
@@ -32,19 +31,19 @@ export default function page() {
                 </div>
             </div>
             <div className='flex mb-10 bg-slate-800 rounded-md border gap-11 border-gray-500 p-2 w-[365px] text-xs' >
-                <a href="" >
+                <a href="/" >
                     <div className='py-2 px-6 bg-[#7B6EF6] rounded-md '>
                         <span>All</span>
 
                     </div>
                 </a>
-                <a href="">
+                <a href="/movies">
                     <div className='py-2 px-6 bg-transparent rounded-md '>
                         <span>Movies</span>
 
                     </div>
                 </a>
-                <a href="">
+                <a href="/tv-shows">
                     <div className='py-2 px-6 bg-transparent rounded-md '>
                         <span>TV Shows</span>
 
@@ -54,14 +53,13 @@ export default function page() {
 
             </div>
 
-            <div className='mb-8'>
-                <span className='text-3xl text-[#8E95A9]'>
-                    All<sub className='text-xs'>(120)</sub>
-                </span>
-            </div>
+            
 
-            <MoviesList />
+            <AllVideosList />
 
         </main>
-    )
+    </div>
+  )
 }
+
+export default Home
