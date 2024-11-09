@@ -1,0 +1,75 @@
+[debug] [2023-12-26T14:11:24.971Z] ----------------------------------------------------------------------
+[debug] [2023-12-26T14:11:24.976Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\CodeBox\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --only hosting
+[debug] [2023-12-26T14:11:24.977Z] CLI Version:   13.0.2
+[debug] [2023-12-26T14:11:24.978Z] Platform:      win32
+[debug] [2023-12-26T14:11:24.979Z] Node Version:  v18.18.1
+[debug] [2023-12-26T14:11:24.980Z] Time:          Tue Dec 26 2023 15:11:24 GMT+0100 (West Africa Standard Time)
+[debug] [2023-12-26T14:11:24.980Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-12-26T14:11:25.218Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-12-26T14:11:25.220Z] > authorizing via signed-in user (rajcodes733@gmail.com)
+[info] i  emulators: Starting emulators: hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: hosting"}}
+[debug] [2023-12-26T14:11:25.269Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-12-26T14:11:25.270Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-12-26T14:11:25.270Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[warn] !  emulators: It seems that you are running multiple instances of the emulator suite for project movie-list-adc78. This may result in unexpected behavior. 
+[debug] [2023-12-26T14:11:25.325Z] [hub] writing locator at C:\Users\CodeBox\AppData\Local\Temp\hub-movie-list-adc78.json
+[debug] [2023-12-26T14:11:25.368Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/movie-list-adc78 [none]
+[debug] [2023-12-26T14:11:26.242Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/movie-list-adc78 200
+[debug] [2023-12-26T14:11:26.243Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/movie-list-adc78 {"projectId":"movie-list-adc78","projectNumber":"697649131765","displayName":"movie-list","name":"projects/movie-list-adc78","resources":{"hostingSite":"movie-list-adc78","storageBucket":"movie-list-adc78.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_a741a030-5513-4b4b-8b4a-04560f7a4f53"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2023-12-26T14:11:53.080Z] [web frameworks] effective firebase.json:  {
+  "hosting": [
+    {
+      "source": ".",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "frameworksBackend": {
+        "region": "us-central1"
+      },
+      "site": "movie-list-adc78",
+      "rewrites": [],
+      "redirects": [],
+      "headers": [],
+      "cleanUrls": true,
+      "public": "public",
+      "webFramework": "next"
+    }
+  ]
+}
+[debug] [2023-12-26T14:11:53.118Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/movie-list-adc78/sites 
+[debug] [2023-12-26T14:11:55.390Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/movie-list-adc78/sites 200
+[debug] [2023-12-26T14:11:55.391Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/movie-list-adc78/sites {"sites":[{"name":"projects/movie-list-adc78/sites/movie-list-adc78","defaultUrl":"https://movie-list-adc78.web.app","appId":"1:697649131765:web:1d5f76cb33177b445895bc","type":"DEFAULT_SITE"}]}
+[debug] [2023-12-26T14:11:55.391Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/movie-list-adc78/webApps/1:697649131765:web:1d5f76cb33177b445895bc/config [none]
+[debug] [2023-12-26T14:11:57.235Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/movie-list-adc78/webApps/1:697649131765:web:1d5f76cb33177b445895bc/config 200
+[debug] [2023-12-26T14:11:57.235Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/movie-list-adc78/webApps/1:697649131765:web:1d5f76cb33177b445895bc/config {"projectId":"movie-list-adc78","appId":"1:697649131765:web:1d5f76cb33177b445895bc","storageBucket":"movie-list-adc78.appspot.com","locationId":"us-central","apiKey":"AIzaSyBHOZVXFNvgLbqc5lbfe_J7fA2bQLlLwV0","authDomain":"movie-list-adc78.firebaseapp.com","messagingSenderId":"697649131765","measurementId":"G-3SNV357GYP"}
+[info] i  hosting[movie-list-adc78]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] +  hosting[movie-list-adc78]: Local server: http://127.0.0.1:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5000\u001b[22m\u001b[24m"}}
+[warn] !  emulators: The Emulator UI is not starting, either because none of the running emulators have a UI component or the Emulator UI cannot determine the Project ID. Pass the --project flag to specify a project. {"metadata":{"emulator":{"name":"hub"},"message":"The Emulator UI is not starting, either because none of the running emulators have a UI component or the Emulator UI cannot determine the Project ID. Pass the --project flag to specify a project."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────┬────────────────┐
+│ Emulator │ Host:Port      │
+├──────────┼────────────────┤
+│ Hosting  │ 127.0.0.1:5000 │
+└──────────┴────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
