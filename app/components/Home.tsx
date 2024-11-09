@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 // import MoviesList from './movies'
 export default function HomePage() {
@@ -30,24 +31,24 @@ export default function HomePage() {
                 </div>
             </div>
             <div className='flex mb-10 bg-slate-800 rounded-md border gap-11 border-gray-500 p-2 w-[365px] text-xs' >
-                <a href="" >
+                <Link href="" >
                     <div className='py-2 px-6 bg-[#7B6EF6] rounded-md '>
                         <span>All</span>
 
                     </div>
-                </a>
-                <a href="">
+                </Link>
+                <Link href="">
                     <div className='py-2 px-6 bg-transparent rounded-md '>
                         <span>Movies</span>
 
                     </div>
-                </a>
-                <a href="">
+                </Link>
+                <Link href="">
                     <div className='py-2 px-6 bg-transparent rounded-md '>
                         <span>TV Shows</span>
 
                     </div>
-                </a>
+                </Link>
 
 
             </div>

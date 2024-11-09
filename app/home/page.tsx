@@ -1,5 +1,6 @@
 import React from 'react'
 import AllVideosList from '../components/Allvideoes'
+import Link from 'next/link'
 
 const Home = () => {
   return (
@@ -31,24 +32,24 @@ const Home = () => {
                 </div>
             </div>
             <div className='flex mb-10 bg-slate-800 rounded-md border gap-11 border-gray-500 p-2 w-[365px] text-xs' >
-                <a href="/" >
+                <Link href="/" >
                     <div className='py-2 px-6 bg-[#7B6EF6] rounded-md '>
                         <span>All</span>
 
                     </div>
-                </a>
-                <a href="/movies">
+                </Link>
+                <Link href="/movies">
                     <div className='py-2 px-6 bg-transparent rounded-md '>
                         <span>Movies</span>
 
                     </div>
-                </a>
-                <a href="/tv-shows">
+                </Link>
+                <Link href="/tv-shows">
                     <div className='py-2 px-6 bg-transparent rounded-md '>
                         <span>TV Shows</span>
 
                     </div>
-                </a>
+                </Link>
 
 
             </div>
