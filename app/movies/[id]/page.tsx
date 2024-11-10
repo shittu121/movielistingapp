@@ -90,61 +90,70 @@ export default function VideoDetails({ params }: { params: Promise<{ id: string 
   // Select the first video (or any specific type of video like "trailer")
   const selectedVideo = videos.find((video) => video.type === "Trailer") || videos[0];
 
-  if (!selectedVideo) return <p>No video available</p>;
-
   return (
     <div className="movie-details-page p-10">
-      <h1 className="text-4xl mb-6">{video.title || video.name}</h1>
+      <h1 className="text-4xl mb-6">{video?.title || video?.name || "No Title Available"}</h1>
       <div className="lg:flex md:flex block space-y-5 gap-10">
-        <Image
-          src={`https://image.tmdb.org/t/p/w500/${video.poster_path}`}
-          height={700}
-          width={400}
-          className="rounded-md"
-          alt={video.title || video.name}
-        />
+        {video && video.poster_path && (
+          <Image
+            src={`https://image.tmdb.org/t/p/w500/${video.poster_path}`}
+            height={700}
+            width={400}
+            className="rounded-md"
+            alt={video.title || video.name}
+          />
+        )}
         <div>
           <h2 className="text-2xl mb-4">Overview</h2>
-          <p className="mb-6">{video.overview}</p>
+          <p className="mb-6">{video?.overview || "No overview available."}</p>
           <p>
             <strong>{isMovie ? "Release Date" : "First Air Date"}:</strong>{" "}
-            {isMovie ? video.release_date : video.first_air_date}
+            {isMovie ? video?.release_date : video?.first_air_date || "N/A"}
           </p>
           <p>
-            <strong>Rating:</strong> {video.vote_average}
+            <strong>Rating:</strong> {video?.vote_average || "N/A"}
           </p>
         </div>
       </div>
 
       {/* Display the selected video */}
-      <div className="mt-10">
-        <h2 className="text-2xl mb-4">Featured Video</h2>
-        <div className="video-item">
-          <iframe
-            width="100%"
-            height="500"
-            src={`https://www.youtube.com/embed/${selectedVideo.key}`}
-            title={selectedVideo.name}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-          <p className="mt-2">{selectedVideo.name}</p>
+      {selectedVideo ? (
+        <div className="mt-10">
+          <h2 className="text-2xl mb-4">Featured Video</h2>
+          <div className="video-item">
+            <iframe
+              width="100%"
+              height="500"
+              src={`https://www.youtube.com/embed/${selectedVideo.key}`}
+              title={selectedVideo.name}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+            <p className="mt-2">{selectedVideo.name}</p>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="mt-10">
+          <h2 className="text-2xl mb-4">No Video Available</h2>
+          <p>No video available for this {isMovie ? "movie" : "TV show"}. But here’s more information:</p>
+        </div>
+      )}
 
       {/* Download Option (example with a placeholder link) */}
-      <div className="mt-5">
-        <h3 className="text-xl">Download Video</h3>
-        <p>Click below to download the {isMovie ? "movie" : "TV show"} trailer:</p>
-        <a
-          href={`https://www.youtube.com/watch?v=${selectedVideo.key}`} // Placeholder download link (YouTube does not allow direct downloads)
-          target="_blank"
-          className="text-blue-500 hover:underline"
-        >
-          Download Trailer (external link)
-        </a>
-      </div>
+      {selectedVideo && (
+        <div className="mt-5">
+          <h3 className="text-xl">Download Video</h3>
+          <p>Click below to download the {isMovie ? "movie" : "TV show"} trailer:</p>
+          <a
+            href={`https://www.youtube.com/watch?v=${selectedVideo.key}`} // Placeholder download link (YouTube does not allow direct downloads)
+            target="_blank"
+            className="text-blue-500 hover:underline"
+          >
+            Download Trailer (external link)
+          </a>
+        </div>
+      )}
     </div>
   );
 }

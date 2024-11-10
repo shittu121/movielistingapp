@@ -1,6 +1,7 @@
 import React from 'react'
 import AllVideosList from '../components/Allvideoes'
 import Link from 'next/link'
+import Search from '../components/Search'
 
 const Home = () => {
   return (
@@ -17,18 +18,7 @@ const Home = () => {
                     <span className='text-sm text-[#8E95A9]'>List of movies and TV Shows, I, Pramod Poudel have watched till date. Explore what I have watched and also feel free to make a suggestion. 😉</span>
                 </div>
                 <div className='flex'>
-                    <form>
-                        <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                        <div className="relative">
-                            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                </svg>
-                            </div>
-                            <input type="search" id="default-search" className="block w-full p-4 ps-10 text-xs text-gray-900 border border-gray-500 outline-none rounded-lg bg-transparent focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Movies ..." required />
-
-                        </div>
-                    </form>
+                    <Search />
                 </div>
             </div>
             <div className='flex mb-10 bg-slate-800 rounded-md border gap-11 border-gray-500 p-2 w-[365px] text-xs' >

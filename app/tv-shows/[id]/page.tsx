@@ -4,7 +4,7 @@ import Image from "next/image";
 
 // Movie/TV Show details component with dynamic route parameter
 export default function VideoDetails({ params }: { params: Promise<{ id: string }> }) {
-  const [video, setVideo] = useState<any>(null);  // State to hold movie or TV show details
+  const [video, setVideo] = useState<any>(null); // State to hold movie or TV show details
   const [videos, setVideos] = useState<any[]>([]); // State to hold videos for movie/TV show
   const [isMovie, setIsMovie] = useState<boolean | null>(null); // Flag to differentiate between movie and TV show
   const [isLoading, setIsLoading] = useState<boolean>(true); // Loading state
@@ -35,7 +35,6 @@ export default function VideoDetails({ params }: { params: Promise<{ id: string 
     try {
       const res = await fetch(endpoint);
       const data = await res.json();
-      console.log("Fetched video details:", data); // Debugging log
       setVideo(data);
     } catch (error) {
       console.error("Error fetching video details:", error);
@@ -52,7 +51,6 @@ export default function VideoDetails({ params }: { params: Promise<{ id: string 
     try {
       const res = await fetch(endpoint);
       const data = await res.json();
-      console.log("Fetched videos:", data); // Debugging log for video response
       if (data.results && data.results.length > 0) {
         setVideos(data.results);
       } else {
@@ -117,47 +115,11 @@ export default function VideoDetails({ params }: { params: Promise<{ id: string 
 
   if (!video) return <p>Video not found.</p>;
 
-  // If there are no videos available, show a fallback image or message
-  if (videos.length === 0) {
-    return (
-      <div className="video-details-page p-10">
-        <h1 className="text-4xl mb-6">{video.title || video.name}</h1>
-        <div className="block lg:flex md:flex space-y-5 gap-10">
-          <Image
-            src={`https://image.tmdb.org/t/p/w500/${video.poster_path}`}
-            height={700}
-            width={400}
-            className="rounded-md"
-            alt={video.title || video.name}
-          />
-          <div>
-            <h2 className="text-2xl mb-4">Overview</h2>
-            <p className="mb-6">{video.overview}</p>
-            <p>
-              <strong>{isMovie ? "Release Date" : "First Air Date"}:</strong>{" "}
-              {isMovie ? video.release_date : video.first_air_date}
-            </p>
-            <p>
-              <strong>Rating:</strong> {video.vote_average}
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-10">
-          <h2 className="text-2xl mb-4">No Trailer Available</h2>
-          <p>Unfortunately, there are no videos available for this title at the moment.</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Select the first video (or any specific type of video like "Trailer")
-  const selectedVideo = videos.find((video) => video.type === "Trailer") || videos[0];
-
+  // If there are no videos available, show the details without video content
   return (
     <div className="video-details-page p-10">
       <h1 className="text-4xl mb-6">{video.title || video.name}</h1>
-      <div className="block lg:flex md:flex gap-10 space-y-5">
+      <div className="block lg:flex md:flex space-y-5 gap-10">
         <Image
           src={`https://image.tmdb.org/t/p/w500/${video.poster_path}`}
           height={700}
@@ -178,22 +140,28 @@ export default function VideoDetails({ params }: { params: Promise<{ id: string 
         </div>
       </div>
 
-      {/* Display the selected video */}
-      <div className="mt-10">
-        <h2 className="text-2xl mb-4">Featured Video</h2>
-        <div className="video-item">
-          <iframe
-            width="100%"
-            height="500"
-            src={`https://www.youtube.com/embed/${selectedVideo.key}`}
-            title={selectedVideo.name}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-          <p className="mt-2">{selectedVideo.name}</p>
+      {videos.length === 0 ? (
+        <div className="mt-10">
+          <h2 className="text-2xl mb-4">No Trailer Available</h2>
+          <p>Unfortunately, there are no videos available for this title at the moment.</p>
         </div>
-      </div>
+      ) : (
+        <div className="mt-10">
+          <h2 className="text-2xl mb-4">Featured Video</h2>
+          <div className="video-item">
+            <iframe
+              width="100%"
+              height="500"
+              src={`https://www.youtube.com/embed/${videos[0].key}`}
+              title={videos[0].name}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+            <p className="mt-2">{videos[0].name}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
