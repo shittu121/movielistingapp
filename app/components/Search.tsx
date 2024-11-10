@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation"; // Use router for navigation
 
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY; // Fetching the API key from .env
+
+
 const Search = () => {
   const [query, setQuery] = useState(""); // Track search query
   const [results, setResults] = useState<any[]>([]); // Track search results
@@ -22,7 +25,7 @@ const Search = () => {
     // Fetch results if query length is more than 2
     if (searchValue.length > 2) {
       const res = await fetch(
-        `https://api.themoviedb.org/3/search/multi?api_key=1cf389e0f40ef3e4cb2868cb714afb09&query=${searchValue}`
+        `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${searchValue}`
       );
       const data = await res.json();
 

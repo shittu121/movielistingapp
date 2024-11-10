@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY; // Fetching the API key from .env
+
+
 // TV Show list component with pagination
 export default function TVShowList() {
   const [tvShowList, setTvShowList] = useState<any[]>([]); // State for storing TV shows
@@ -14,7 +17,7 @@ export default function TVShowList() {
   const getTVShows = (page: number) => {
     setLoading(true);
     fetch(
-      `https://api.themoviedb.org/3/discover/tv?api_key=1cf389e0f40ef3e4cb2868cb714afb09&page=${page}`
+      `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&page=${page}`
     )
       .then((res) => res.json())
       .then((json) => {

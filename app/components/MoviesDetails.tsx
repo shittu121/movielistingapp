@@ -3,6 +3,9 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY; // Fetching the API key from .env
+
+
 // Movie/TV Show details component with dynamic route parameter
 export default function VideoDetails({ params }: { params: { id: string } }) {
   const [video, setVideo] = useState<any>(null);  // State to hold movie or TV show details
@@ -16,8 +19,8 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
   // Fetch video (movie or TV show) details
   const getVideoDetails = async (id: string, isMovie: boolean) => {
     const endpoint = isMovie
-      ? `https://api.themoviedb.org/3/movie/${id}?api_key=1cf389e0f40ef3e4cb2868cb714afb09`
-      : `https://api.themoviedb.org/3/tv/${id}?api_key=1cf389e0f40ef3e4cb2868cb714afb09`;
+      ? `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`
+      : `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}`;
 
     try {
       console.log('Fetching details from:', endpoint); // Debugging API call
@@ -33,8 +36,8 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
   // Fetch videos (movie or TV show videos)
   const getVideoVideos = async (id: string, isMovie: boolean) => {
     const endpoint = isMovie
-      ? `https://api.themoviedb.org/3/movie/${id}/videos?api_key=1cf389e0f40ef3e4cb2868cb714afb09`
-      : `https://api.themoviedb.org/3/tv/${id}/videos?api_key=1cf389e0f40ef3e4cb2868cb714afb09`;
+      ? `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}`
+      : `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${API_KEY}`;
 
     try {
       console.log('Fetching videos from:', endpoint); // Debugging API call
@@ -52,7 +55,7 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
     try {
       // Try fetching the movie details first
       const movieRes = await fetch(
-        `https://api.themoviedb.org/3/movie/${videoId}?api_key=1cf389e0f40ef3e4cb2868cb714afb09`
+        `https://api.themoviedb.org/3/movie/${videoId}?api_key=${API_KEY}`
       );
       const movieData = await movieRes.json();
       console.log('Movie data:', movieData); // Debugging
@@ -67,7 +70,7 @@ export default function VideoDetails({ params }: { params: { id: string } }) {
 
       // If it's not a movie, try fetching TV show details
       const tvRes = await fetch(
-        `https://api.themoviedb.org/3/tv/${videoId}?api_key=1cf389e0f40ef3e4cb2868cb714afb09`
+        `https://api.themoviedb.org/3/tv/${videoId}?api_key=${API_KEY}`
       );
       const tvData = await tvRes.json();
       console.log('TV data:', tvData); // Debugging

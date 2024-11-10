@@ -5,6 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";  // Import useSearchParams and useRouter
 
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY; // Fetching the API key from .env
+
+
 // Movie list component with pagination
 export default function MoviesList() {
   const [movielist, setMovielist] = useState<any[]>([]);
@@ -20,7 +23,7 @@ export default function MoviesList() {
   const getMovie = (page: number) => {
     setLoading(true);
     fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=1cf389e0f40ef3e4cb2868cb714afb09&page=${page}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${page}`
     )
       .then((res) => res.json())
       .then((json) => {

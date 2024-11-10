@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchParams, useParams } from "next/navigation";
 
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY; // Fetching the API key from .env
+
+
 export default function VideoDetails() {
   const [video, setVideo] = useState<any>(null); // State to hold movie or TV show details
   const [videos, setVideos] = useState<any[]>([]); // State to hold video results (e.g., trailers)
@@ -44,8 +47,8 @@ export default function VideoDetails() {
   // Fetch video details (movie or TV show)
   const fetchVideoDetails = async (id: string, isMovie: boolean) => {
     const endpoint = isMovie
-      ? `https://api.themoviedb.org/3/movie/${id}?api_key=1cf389e0f40ef3e4cb2868cb714afb09`
-      : `https://api.themoviedb.org/3/tv/${id}?api_key=1cf389e0f40ef3e4cb2868cb714afb09`;
+      ? `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`
+      : `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}`;
 
     try {
       const res = await fetch(endpoint);
@@ -61,8 +64,8 @@ export default function VideoDetails() {
   // Fetch videos (trailers, clips, etc.)
   const fetchVideoVideos = async (id: string, isMovie: boolean) => {
     const endpoint = isMovie
-      ? `https://api.themoviedb.org/3/movie/${id}/videos?api_key=1cf389e0f40ef3e4cb2868cb714afb09`
-      : `https://api.themoviedb.org/3/tv/${id}/videos?api_key=1cf389e0f40ef3e4cb2868cb714afb09`;
+      ? `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}`
+      : `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${API_KEY}`;
 
     try {
       const res = await fetch(endpoint);
